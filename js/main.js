@@ -246,16 +246,6 @@
       })(this));
       counter = 0;
       round = 20;
-      setInterval((function(_this) {
-        return function() {
-          if (counter % round === 0) {
-            $('#kotoyoro').css('opacity', 0);
-          } else if (counter % round === 1) {
-            $('#kotoyoro').css('opacity', 1);
-          }
-          return counter++;
-        };
-      })(this), 30);
     }
 
     Murakami.prototype.up = function() {
@@ -303,7 +293,11 @@
       }, 4000, null, null);
       back.initNasu();
       new Front();
-      new Murakami();
+      setTimeout((function(_this) {
+        return function() {
+          return new Murakami();
+        };
+      })(this), 5000);
       this.counter = 0;
     }
 

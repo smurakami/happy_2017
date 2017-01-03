@@ -177,13 +177,6 @@ class Murakami
       @up()
     counter = 0
     round = 20
-    setInterval =>
-      if counter % round == 0
-        $('#kotoyoro').css 'opacity', 0
-      else if counter % round == 1
-        $('#kotoyoro').css 'opacity', 1
-      counter++
-    , 30
   up: ->
     $('#murakami').animate
       top: '5%'
@@ -216,7 +209,10 @@ class Main
 
     back.initNasu()
     new Front()
-    new Murakami()
+
+    setTimeout =>
+      new Murakami()
+    , 5000
 
     @counter = 0
 
