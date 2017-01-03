@@ -16,13 +16,21 @@
 </head>
 <body>
   <div id="container">
-    <div id="light"></div>
-    <canvas height="1000" id="moveup" width="320">
+    <!-- #light -->
+    <canvas height="1000" id="back" width="320">
       <div class="hidden">
         <img class="nasu" src="img/nasu.png">
+        <img class="light" src="img/light.jpg">
       </div>
     </canvas>
-    <!-- #fuji -->
-    <!-- #year -->
+    <div id="fuji"></div>
+    <canvas height="1000" id="front" width="320">
+      <div class="hidden">
+        <img class="nasu" src="img/nasu.png">
+        <img class="nasu" src="img/taka.png">
+        <img class="light" src="img/light.jpg">
+      </div>
+    </canvas>
+    <div id="year"></div>
   </div>
 </body>

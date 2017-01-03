@@ -16,10 +16,16 @@
 
 %body
   #container
-    #light
-    %canvas#moveup{width: 320, height: 1000}
+    / #light
+    %canvas#back{width: 320, height: 1000}
       .hidden
         %img.nasu{ src: 'img/nasu.png' }
-    / #fuji
-    / #year
+        %img.light{ src: 'img/light.jpg' }
+    #fuji
+    %canvas#front{width: 320, height: 1000}
+      .hidden
+        %img.nasu{ src: 'img/nasu.png' }
+        %img.nasu{ src: 'img/taka.png' }
+        %img.light{ src: 'img/light.jpg' }
+    #year
 
