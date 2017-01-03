@@ -2,21 +2,21 @@ class Back
   constructor: ->
     @canvas = $('#back').get(0)
     @context = @canvas.getContext('2d')
-    @width = @canvas.width = $(window).width()
-    @height = @canvas.height = $(window).height()
+    @width = @canvas.width = $('#container').width()
+    @height = @canvas.height = $('#container').height()
 
     @light = new Light(@)
-
     @objects = []
-    for i in [0...10]
-      obj = new Obj(@)
-
-      @objects.push obj
 
     @timer = setInterval =>
       @update()
       @draw()
     , 33
+
+  initNasu: ->
+    for i in [0...10]
+      obj = new Obj(@)
+      @objects.push obj
 
   update: ->
     @light.update()
@@ -100,8 +100,8 @@ class Front
   constructor: ->
     @canvas = $('#front').get(0)
     @context = @canvas.getContext('2d')
-    @width = @canvas.width = $(window).width()
-    @height = @canvas.height = $(window).height()
+    @width = @canvas.width = $('#container').width()
+    @height = @canvas.height = $('#container').height()
 
     @objects = []
     for i in [0...5]
@@ -120,9 +120,6 @@ class Front
 
   draw: ->
     @context.clearRect(0, 0, @width, @height)
-    # @context.beginPath()
-    # @context.fillRect(0, 0, @width, @height)
-    # @context.fillRect(10, 10, 40, 40)
     for obj in @objects
       obj.draw @context
 
@@ -207,39 +204,21 @@ class Murakami
 
 class Main
   constructor: ->
-    new Back()
+    $('body').css 'height', $(window).height()
+    $('#container').css(
+      'margin-left',
+      ($(window).width() - $('#container').width())/2)
+    back = new Back()
+
+    $('#container').animate
+      opacity: 1
+    , 4000, null, null
+
+    back.initNasu()
     new Front()
     new Murakami()
-    $('body').css 'height', $(window).height()
-    @initLight()
+
     @counter = 0
-
-  initLight: ->
-    height = $(window).height()
-    width = $(window).width()
-    size = Math.sqrt(height * height + width * width)
-    $('#light').css 'width', size
-    $('#light').css 'height', size
-    $('#light').css 'margin-left', (width - size)/2
-    $('#light').css 'margin-top', (height - size)/2
-
-  initObjects: ->
-    @objects = []
-    for i in [0...10]
-      obj = $('.object').clone()
-      obj.pos =
-        x: Math.random() * $(window).width()
-        # y: (1 + Math.random()) * $(window).height()
-        y: 10
-
-      obj.vel =
-        x: 0
-        y: -1
-
-      obj.css 'margin-left', obj.pos.x
-      obj.css 'margin-top', obj.pos.y
-      $('#objects').append obj
-      @objects.push obj
 
 
 $ ->

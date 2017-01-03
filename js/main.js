@@ -5,17 +5,12 @@
     var Light, Obj;
 
     function Back() {
-      var i, obj, _i;
       this.canvas = $('#back').get(0);
       this.context = this.canvas.getContext('2d');
-      this.width = this.canvas.width = $(window).width();
-      this.height = this.canvas.height = $(window).height();
+      this.width = this.canvas.width = $('#container').width();
+      this.height = this.canvas.height = $('#container').height();
       this.light = new Light(this);
       this.objects = [];
-      for (i = _i = 0; _i < 10; i = ++_i) {
-        obj = new Obj(this);
-        this.objects.push(obj);
-      }
       this.timer = setInterval((function(_this) {
         return function() {
           _this.update();
@@ -23,6 +18,16 @@
         };
       })(this), 33);
     }
+
+    Back.prototype.initNasu = function() {
+      var i, obj, _i, _results;
+      _results = [];
+      for (i = _i = 0; _i < 10; i = ++_i) {
+        obj = new Obj(this);
+        _results.push(this.objects.push(obj));
+      }
+      return _results;
+    };
 
     Back.prototype.update = function() {
       var obj, _i, _len, _ref, _results;
@@ -136,8 +141,8 @@
       var i, obj, _i;
       this.canvas = $('#front').get(0);
       this.context = this.canvas.getContext('2d');
-      this.width = this.canvas.width = $(window).width();
-      this.height = this.canvas.height = $(window).height();
+      this.width = this.canvas.width = $('#container').width();
+      this.height = this.canvas.height = $('#container').height();
       this.objects = [];
       for (i = _i = 0; _i < 5; i = ++_i) {
         obj = new Obj(this);
@@ -289,46 +294,18 @@
 
   Main = (function() {
     function Main() {
-      new Back();
+      var back;
+      $('body').css('height', $(window).height());
+      $('#container').css('margin-left', ($(window).width() - $('#container').width()) / 2);
+      back = new Back();
+      $('#container').animate({
+        opacity: 1
+      }, 4000, null, null);
+      back.initNasu();
       new Front();
       new Murakami();
-      $('body').css('height', $(window).height());
-      this.initLight();
       this.counter = 0;
     }
-
-    Main.prototype.initLight = function() {
-      var height, size, width;
-      height = $(window).height();
-      width = $(window).width();
-      size = Math.sqrt(height * height + width * width);
-      $('#light').css('width', size);
-      $('#light').css('height', size);
-      $('#light').css('margin-left', (width - size) / 2);
-      return $('#light').css('margin-top', (height - size) / 2);
-    };
-
-    Main.prototype.initObjects = function() {
-      var i, obj, _i, _results;
-      this.objects = [];
-      _results = [];
-      for (i = _i = 0; _i < 10; i = ++_i) {
-        obj = $('.object').clone();
-        obj.pos = {
-          x: Math.random() * $(window).width(),
-          y: 10
-        };
-        obj.vel = {
-          x: 0,
-          y: -1
-        };
-        obj.css('margin-left', obj.pos.x);
-        obj.css('margin-top', obj.pos.y);
-        $('#objects').append(obj);
-        _results.push(this.objects.push(obj));
-      }
-      return _results;
-    };
 
     return Main;
 
