@@ -1,5 +1,8 @@
 (function() {
-  console.log('helloooo');
+  $(function() {
+    console.log('hello');
+    return $('body').css('height', $('window').height());
+  });
 
 }).call(this);
 
