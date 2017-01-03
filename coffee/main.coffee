@@ -8,7 +8,7 @@ class Back
     @light = new Light(@)
 
     @objects = []
-    for i in [0...20]
+    for i in [0...10]
       obj = new Obj(@)
 
       @objects.push obj
@@ -171,17 +171,48 @@ class Front
       @context.restore()
 
 
+class Murakami
+  constructor: ->
+    $('#murakami').animate
+      top: '50%'
+    , 10, null, =>
+      $('#murakami').css 'display', 'block'
+      @up()
+    counter = 0
+    round = 20
+    setInterval =>
+      if counter % round == 0
+        $('#kotoyoro').css 'opacity', 0
+      else if counter % round == 1
+        $('#kotoyoro').css 'opacity', 1
+      counter++
+    , 30
+  up: ->
+    $('#murakami').animate
+      top: '5%'
+    , 5000, null, =>
+      @stay()
+  stay: ->
+    $('#kotoyoro').css 'display', 'block'
+    setTimeout =>
+      $('#kotoyoro').css 'display', 'none'
+      @down()
+    , 3000
+  down: ->
+    $('#murakami').animate
+      top: '50%'
+    , 5000, null, =>
+      @up()
+
+
 class Main
   constructor: ->
     new Back()
     new Front()
+    new Murakami()
     $('body').css 'height', $(window).height()
     @initLight()
-    # @initObjects()
     @counter = 0
-    @timer = setInterval =>
-      @update()
-    , 33
 
   initLight: ->
     height = $(window).height()
@@ -209,18 +240,6 @@ class Main
       obj.css 'margin-top', obj.pos.y
       $('#objects').append obj
       @objects.push obj
-
-  update: ->
-    # $('#light').css 'transform', "rotate(#{@counter}deg)"
-
-    # for obj in @objects
-    #   obj.pos.x += obj.vel.x
-    #   obj.pos.y += obj.vel.y
-
-    #   obj.css 'margin-left', obj.pos.x
-    #   obj.css 'margin-top', obj.pos.y
-
-    @counter++
 
 
 $ ->

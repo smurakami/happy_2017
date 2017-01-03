@@ -1,5 +1,5 @@
 (function() {
-  var Back, Front, Main;
+  var Back, Front, Main, Murakami;
 
   Back = (function() {
     var Light, Obj;
@@ -12,7 +12,7 @@
       this.height = this.canvas.height = $(window).height();
       this.light = new Light(this);
       this.objects = [];
-      for (i = _i = 0; _i < 20; i = ++_i) {
+      for (i = _i = 0; _i < 10; i = ++_i) {
         obj = new Obj(this);
         this.objects.push(obj);
       }
@@ -228,18 +228,73 @@
 
   })();
 
+  Murakami = (function() {
+    function Murakami() {
+      var counter, round;
+      $('#murakami').animate({
+        top: '50%'
+      }, 10, null, (function(_this) {
+        return function() {
+          $('#murakami').css('display', 'block');
+          return _this.up();
+        };
+      })(this));
+      counter = 0;
+      round = 20;
+      setInterval((function(_this) {
+        return function() {
+          if (counter % round === 0) {
+            $('#kotoyoro').css('opacity', 0);
+          } else if (counter % round === 1) {
+            $('#kotoyoro').css('opacity', 1);
+          }
+          return counter++;
+        };
+      })(this), 30);
+    }
+
+    Murakami.prototype.up = function() {
+      return $('#murakami').animate({
+        top: '5%'
+      }, 5000, null, (function(_this) {
+        return function() {
+          return _this.stay();
+        };
+      })(this));
+    };
+
+    Murakami.prototype.stay = function() {
+      $('#kotoyoro').css('display', 'block');
+      return setTimeout((function(_this) {
+        return function() {
+          $('#kotoyoro').css('display', 'none');
+          return _this.down();
+        };
+      })(this), 3000);
+    };
+
+    Murakami.prototype.down = function() {
+      return $('#murakami').animate({
+        top: '50%'
+      }, 5000, null, (function(_this) {
+        return function() {
+          return _this.up();
+        };
+      })(this));
+    };
+
+    return Murakami;
+
+  })();
+
   Main = (function() {
     function Main() {
       new Back();
       new Front();
+      new Murakami();
       $('body').css('height', $(window).height());
       this.initLight();
       this.counter = 0;
-      this.timer = setInterval((function(_this) {
-        return function() {
-          return _this.update();
-        };
-      })(this), 33);
     }
 
     Main.prototype.initLight = function() {
@@ -273,10 +328,6 @@
         _results.push(this.objects.push(obj));
       }
       return _results;
-    };
-
-    Main.prototype.update = function() {
-      return this.counter++;
     };
 
     return Main;
