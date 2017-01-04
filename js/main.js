@@ -259,13 +259,7 @@
     };
 
     Murakami.prototype.stay = function() {
-      $('#kotoyoro').css('display', 'block');
-      return setTimeout((function(_this) {
-        return function() {
-          $('#kotoyoro').css('display', 'none');
-          return _this.down();
-        };
-      })(this), 3000);
+      return $('#kotoyoro').css('display', 'block');
     };
 
     Murakami.prototype.down = function() {

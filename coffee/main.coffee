@@ -184,10 +184,10 @@ class Murakami
       @stay()
   stay: ->
     $('#kotoyoro').css 'display', 'block'
-    setTimeout =>
-      $('#kotoyoro').css 'display', 'none'
-      @down()
-    , 3000
+    # setTimeout =>
+    #   $('#kotoyoro').css 'display', 'none'
+    #   @down()
+    # , 3000
   down: ->
     $('#murakami').animate
       top: '50%'
