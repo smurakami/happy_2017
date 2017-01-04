@@ -212,7 +212,7 @@ class Main
 
     setTimeout =>
       new Murakami()
-    , 5000
+    , 8500
 
     @counter = 0
 
