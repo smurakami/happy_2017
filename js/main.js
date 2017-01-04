@@ -291,7 +291,7 @@
         return function() {
           return new Murakami();
         };
-      })(this), 5000);
+      })(this), 8500);
       this.counter = 0;
     }
 
